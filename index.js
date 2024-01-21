@@ -2,13 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
-import {decryptData} from "encrypted-binary-communications/protocol.js"
-// import { decryptData } from "./protocol.js";
-
-//express app
+import { decryptData } from "encrypted-binary-communications/protocol.js";
 const app = express();
 
-// middleware & static files
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
@@ -17,21 +13,23 @@ const endPoints = process.env.ENDPOINTS.split(", ");
 const secret = process.env.SECRET;
 // initializeBackend(secret, endPoints);
 
-// routes
-app.get("/", function (req, res) {
-  // res.send("hi");
-  // res.sendFile(__dirname + "/index.html");
-});
-
 app.post("/", async (req, res) => {
-  const {encryptedData, iv} = req.body;
-  console.log("🔥  encryptedData: ", encryptedData);
+  const { data, state } = req.body;
+  console.log(`data: ${data}, state: ${state}`);
 
-  const text = await decryptData(encryptedData, iv);
-  console.log("🔥  text: ", text);
-  
+  // decrypt data according to the state
+  if (state === 0) {
+  } else if (state === 1) {
+  } else if (state === 2) {
+  } else if (state === 3) {
+  } else {
+  }
+  // console.log("🔥  encryptedData: ", encryptedData);
 
-  res.status(200).json({ message: "successfully getting the encrypted data" });
+  // const data = await decryptData(encryptedData, iv);
+  // console.log("🔥  data: ", data);
+
+  res.status(200).json({ message: `data: ${data}, state: ${state}` });
 });
 
 // listen for requests
